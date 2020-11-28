@@ -10,10 +10,6 @@ import helmet from "helmet";
 import messageRoutes from "./routes/message.routes";
 import { config } from "process";
 
-let messages = [
-  { _id: 0, passcode: "marco", messsage: "secret message", destroyed: false },
-];
-
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
 
@@ -40,7 +36,8 @@ app.use(helmet());
  * Only allow requests from the client origin
  */
 const corsOptions = {
-  origin: config.client_origin,
+  // origin: config.client_origin,
+  origin: "https://secure.eoan.ie",
   optionsSuccessStatus: 200,
 };
 
