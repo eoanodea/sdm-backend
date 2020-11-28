@@ -43,6 +43,7 @@ const corsOptions = {
 /**
  * Enable CORS - Cross Origin Resource Sharing
  */
+
 app.use(cors(corsOptions));
 
 app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
