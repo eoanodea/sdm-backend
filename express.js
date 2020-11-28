@@ -35,16 +35,16 @@ app.use(helmet());
  * CORS Options
  * Only allow requests from the client origin
  */
-const corsOptions = {
-  origin: config.client_origin,
-  // origin: "https://secure.eoan.ie",
-  optionsSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: "*",
+//   // origin: "https://secure.eoan.ie",
+//   optionsSuccessStatus: 200,
+// };
 
 /**
  * Enable CORS - Cross Origin Resource Sharing
  */
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
 
