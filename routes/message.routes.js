@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .route("/messages/:passcode")
-  .get(messageCtrl.get)
+  .get(messageCtrl.incrementViews, messageCtrl.get)
   .delete(messageCtrl.destroy);
 
 router.route("/message").post(messageCtrl.create);

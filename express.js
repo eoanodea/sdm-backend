@@ -36,8 +36,8 @@ app.use(helmet());
  * Only allow requests from the client origin
  */
 const corsOptions = {
-  // origin: config.client_origin,
-  origin: "https://secure.eoan.ie",
+  origin: config.client_origin,
+  // origin: "https://secure.eoan.ie",
   optionsSuccessStatus: 200,
 };
 

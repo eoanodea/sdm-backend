@@ -18,7 +18,6 @@ const create = (req, res) => {
 
 const messageByPasscode = (req, res, next) => {
   const { passcode } = req.params;
-
   Message.find({}).exec((err, messages) => {
     if (err) {
       return res.status("400").json({
@@ -26,6 +25,7 @@ const messageByPasscode = (req, res, next) => {
         success: false,
       });
     }
+
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
       const encrypedPasscode = message.encryptPassword(passcode);
@@ -34,16 +34,35 @@ const messageByPasscode = (req, res, next) => {
         req.message = {
           _id: message._id,
           message: message.message,
+          views: 0,
         };
+
         return next();
       }
-      break;
     }
 
     return res.status("400").json({
       error: "Not Found",
       success: false,
     });
+  });
+};
+
+const incrementViews = (req, res, next) => {
+  Message.findOneAndUpdate(
+    { _id: req.message._id },
+    { $inc: { views: 1 } },
+    { new: true }
+  ).exec((err, result) => {
+    if (err)
+      return res.status(400).json({
+        success: false,
+        error: "Could not increment views",
+      });
+
+    req.message.views = result.views;
+
+    next();
   });
 };
 
@@ -63,4 +82,4 @@ const destroy = async (req, res, next) => {
   });
 };
 
-export default { create, messageByPasscode, get, destroy };
+export default { create, messageByPasscode, get, destroy, incrementViews };
