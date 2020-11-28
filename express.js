@@ -8,7 +8,6 @@ import cors from "cors";
 import helmet from "helmet";
 
 import messageRoutes from "./routes/message.routes";
-import { config } from "process";
 
 const CURRENT_WORKING_DIR = process.cwd();
 const app = express();
@@ -45,6 +44,12 @@ const corsOptions = {
  */
 
 app.use(cors(corsOptions));
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.use("/dist", express.static(path.join(CURRENT_WORKING_DIR, "dist")));
 
